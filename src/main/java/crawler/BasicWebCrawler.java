@@ -72,10 +72,11 @@ public class BasicWebCrawler {
     }
 
     public static void main(String[] args) {
-        BasicWebCrawler crawler =  new BasicWebCrawler();
+        BasicWebCrawler crawler = new BasicWebCrawler();
         crawler.getAllLinksFromWebsite("https://www.codigococina.com/", 0);
         crawler.writeUrlsToFile("Urls");
         System.out.println("Number of links: " + crawler.links.size());
+
     }
 
 }
