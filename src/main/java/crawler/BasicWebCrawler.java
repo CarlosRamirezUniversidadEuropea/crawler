@@ -26,12 +26,17 @@ public class BasicWebCrawler {
             try {
                 if (isValid(URL) && URL.startsWith("http")) {
                     links.add(URL);
+                    //Con esto descargamos el contenido de la página
                     Document document = Jsoup.connect(URL).get();
                     //TODO
-                    Elements linksOnPage = document.select("");
+                    //Con esto guardamos las url en linksOnPage
+                    Elements linksOnPage = document.select("a[href]");
+                    //Aumentamos el tamaño
                     depth++;
                     for (Element page : linksOnPage) {
                         //TODO get all links for every page
+                        String link = page.attr("href");
+                        getAllLinksFromWebsite(link, depth);
                     }
                 }
             } catch (Exception e) {
@@ -47,6 +52,7 @@ public class BasicWebCrawler {
             for(String link : links)
                 try {
                     //TODO write to file
+                    writer.write("Url: " + link + "\n\n");
 
                 } catch (Exception e) {
                     System.err.println(e.getMessage());
@@ -74,5 +80,4 @@ public class BasicWebCrawler {
         crawler.writeUrlsToFile("Urls");
         System.out.println("Number of links: " + crawler.links.size());
     }
-
 }
