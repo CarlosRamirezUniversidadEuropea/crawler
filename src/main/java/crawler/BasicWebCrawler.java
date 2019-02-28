@@ -28,10 +28,11 @@ public class BasicWebCrawler {
                     links.add(URL);
                     Document document = Jsoup.connect(URL).get();
                     //TODO
-                    Elements linksOnPage = document.select("");
+                    Elements linksOnPage = document.select("a[href]");
                     depth++;
                     for (Element page : linksOnPage) {
-                        //TODO get all links for every page
+                     String link =  page.attr("href");
+                     getAllLinksFromWebsite(link,depth);
                     }
                 }
             } catch (Exception e) {
@@ -46,6 +47,8 @@ public class BasicWebCrawler {
             writer = new FileWriter(filename);
             for(String link : links)
                 try {
+
+                    writer.write("- URL : "+ link+ "\n\n");
                     //TODO write to file
 
                 } catch (Exception e) {
