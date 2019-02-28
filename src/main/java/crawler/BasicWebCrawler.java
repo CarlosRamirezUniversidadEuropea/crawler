@@ -27,11 +27,12 @@ public class BasicWebCrawler {
                 if (isValid(URL) && URL.startsWith("http")) {
                     links.add(URL);
                     Document document = Jsoup.connect(URL).get();
-                    //TODO
-                    Elements linksOnPage = document.select("");
+
+                    Elements linksOnPage = document.select("a[href]");
                     depth++;
                     for (Element page : linksOnPage) {
-                        //TODO get all links for every page
+                        String link = page.attr("href");
+                        getAllLinksFromWebsite(link, depth);
                     }
                 }
             } catch (Exception e) {
@@ -46,7 +47,8 @@ public class BasicWebCrawler {
             writer = new FileWriter(filename);
             for(String link : links)
                 try {
-                    //TODO write to file
+
+                    writer.write("- Url: " + link + "\n\n");
 
                 } catch (Exception e) {
                     System.err.println(e.getMessage());
