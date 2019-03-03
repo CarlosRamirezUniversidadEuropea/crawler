@@ -27,7 +27,7 @@ public class BasicWebCrawler {
                 if (isValid(URL) && URL.startsWith("http")) {
                     links.add(URL);
                     Document document = Jsoup.connect(URL).get();
-                    //TODO
+
                     Elements linksOnPage = document.select("a[href]");
                     depth++;
                     for (Element page : linksOnPage) {
