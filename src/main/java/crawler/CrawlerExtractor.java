@@ -25,10 +25,10 @@ public class CrawlerExtractor {
     public void getPageLinks(String URL) {
         if (!links.contains(URL)) {
             try {
-
+                //establecemos conexion
                 Document document = Jsoup.connect(URL).get();
 
-                //TODO
+
                 Elements otherLinks = document.select("a[href^=https://www.codigococina.com/page]");
 
                 for (Element page : otherLinks) {
@@ -37,11 +37,12 @@ public class CrawlerExtractor {
                         System.out.println(URL);
                     }
                     //Url absoluta de ese atributo
-                    //TODO
+
                     getPageLinks(page.attr("href"));
                 }
             } catch (Exception e) {
                 System.err.println(e.getMessage());
+
             }
         }
     }
