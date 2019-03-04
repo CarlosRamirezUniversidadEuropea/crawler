@@ -56,7 +56,8 @@ public class CrawlerExtractor {
                     String link = article.attr("href");
                     System.out.println(title + " - " + link);
                     ArrayList<String> temporary = new ArrayList<String>();
-                    temporary.add(title + " - " + link);
+                    temporary.add(title);
+                    temporary.add(link);
                     articles.add(temporary);
                 }
             } catch (Exception e) {
@@ -72,7 +73,7 @@ public class CrawlerExtractor {
             for(List<String> articlesUrls : articles)
                 try {
                     //Escribir en fichero las urls
-                    writer.write(articlesUrls+ "\n\n");
+                    writer.write(articlesUrls.get(0) + " (link: " + articlesUrls.get(1) + ")\n");
 
                 } catch (Exception e) {
                     System.err.println(e.getMessage());
