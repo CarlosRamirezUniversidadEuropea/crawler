@@ -50,8 +50,6 @@ public class BasicWebCrawler {
 
                     writer.write("- Url: " +link+ "\n\n");
 
-                    //TODO write to file
-
                 } catch (Exception e) {
                     System.err.println(e.getMessage());
                 }
