@@ -25,12 +25,9 @@ public class CrawlerExtractor {
     public void getPageLinks(String URL) {
         if (!links.contains(URL)) {
             try {
-                //TODO conectarse a la URL con Jsoup
-                //
-                Document document = null;
+                Document document = Jsoup.connect(URL).get();
 
-                //TODO
-                Elements otherLinks = document.select("TODO");
+                Elements otherLinks = document.select("a[href^=https://www.codigococina.com/page]");
 
                 for (Element page : otherLinks) {
                     if (links.add(URL)) {
@@ -38,8 +35,7 @@ public class CrawlerExtractor {
                         System.out.println(URL);
                     }
                     //Url absoluta de ese atributo
-                    //TODO
-                    getPageLinks(page.attr("TODO"));
+                    getPageLinks(page.attr("href"));
                 }
             } catch (Exception e) {
                 System.err.println(e.getMessage());
@@ -50,28 +46,28 @@ public class CrawlerExtractor {
     //Connect to each link saved in the article and find all the articles in the page
     public void getArticles() {
         for (String item: links){
-            //TODO
-            Document document= null;
+
             try {
-                //TODO
+                Document document = Jsoup.connect(item).get();
+
                 //Conectarse a url
 
-                //Selecccionar elementos con h4 y dentro de estos los hijos con etiqueta a[...]
-                //TODO
-                Elements articleLinks = document.select("");
+                //Selecccionar elementos con h2 y dentro de estos los hijos con etiqueta a[...]
+                Elements articleLinks = document.select("h2 a");
                 for (Element article : articleLinks) {
                     //Only retrieve the titles of the articles that contain Java 8
-                    //TODO regex
-                    if (article.text().matches("Regex TODO")) {
+                    String articleText =article.text().toLowerCase();
+                    if (articleText.contains("pollo")) {
                         //Remove the comment from the line below if you want to see it running on your editor,
                         //or wait for the File at the end of the execution
                         //System.out.println(article.attr("abs:href"));
 
                         ArrayList<String> temporary = new ArrayList<String>();
                         temporary.add(article.text()); //The title of the article
-                        //TODO
-                        temporary.add(article.attr("")); //The URL of the article
-                        articles.add(temporary);
+                        temporary.add(article.attr("href")); //The URL of the article
+                        if(articles.contains(temporary)==false) {
+                            articles.add(temporary);
+                        }
                     }
                 }
             } catch (Exception e) {
@@ -86,6 +82,7 @@ public class CrawlerExtractor {
             writer = new FileWriter(filename);
             for(List<String> articlesUrls : articles)
                 try {
+                    writer.write("- Title: " + articlesUrls.get(0) + " -URL " + articlesUrls.get(1) + "\n");
                     //TODO
                     //Escribir en fichero las urls
 
@@ -102,6 +99,6 @@ public class CrawlerExtractor {
         CrawlerExtractor bwc = new CrawlerExtractor();
         bwc.getPageLinks("https://www.codigococina.com/");
         bwc.getArticles();
-        bwc.writeToFile("TODO your file name");
+        bwc.writeToFile("Recetas");
     }
 }
