@@ -27,7 +27,6 @@ public class BasicWebCrawler {
                 if (isValid(URL) && URL.startsWith("http")) {
                     links.add(URL);
                     Document document = Jsoup.connect(URL).get();
-                    //TODO
                     Elements linksOnPage = document.select("a[href]");
                     depth++;
                     for (Element page : linksOnPage) {
@@ -48,7 +47,6 @@ public class BasicWebCrawler {
             writer = new FileWriter(filename);
             for(String link : links)
                 try {
-                    //TODO write to file
                     writer.write("- Url: " + link + "\n\n");
 
 
