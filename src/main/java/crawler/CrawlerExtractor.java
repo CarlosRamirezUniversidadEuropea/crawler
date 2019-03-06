@@ -53,11 +53,11 @@ public class CrawlerExtractor {
                 //Conectarse a url
 
                 //Selecccionar elementos con h2 y dentro de estos los hijos con etiqueta a[...]
-                Elements articleLinks = document.select("h2 a");
+                Elements articleLinks = document.select("h2 a.entry-title-link");
                 for (Element article : articleLinks) {
                     //Only retrieve the titles of the articles that contain Java 8
                     String articleText =article.text().toLowerCase();
-                    if (articleText.contains("pollo")) {
+                    if (articleText.contains("bizcocho")) {
                         //Remove the comment from the line below if you want to see it running on your editor,
                         //or wait for the File at the end of the execution
                         //System.out.println(article.attr("abs:href"));
