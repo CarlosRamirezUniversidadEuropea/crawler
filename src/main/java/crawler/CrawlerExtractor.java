@@ -20,7 +20,7 @@ public class CrawlerExtractor {
         links = new HashSet<String>();
         articles = new ArrayList<List<String>>();
     }
-
+//TEST
     //Find all URLs that start with "https://www.codigococina.com/page" and add them to the HashSet
     public void getPageLinks(String URL) {
         if (!links.contains(URL)) {
