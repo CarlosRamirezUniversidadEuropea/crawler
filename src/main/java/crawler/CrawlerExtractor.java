@@ -48,8 +48,9 @@ public class CrawlerExtractor {
     //Connect to each link saved in the article and find all the articles in the page
     public void getArticles() {
         for (String item: links){
-            Document document= Jsoup.connect(item).get();
             try {
+            Document document= Jsoup.connect(item).get();
+
                 //Conectarse a url
                 //Selecccionar elementos a[class = entry-title-link]]
 
