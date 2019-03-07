@@ -27,10 +27,11 @@ public class CrawlerExtractor {
             try {
                 //TODO conectarse a la URL con Jsoup
                 //
-                Document document = null;
+                Document document = Jsoup.connect(URL).get();
+
 
                 //TODO
-                Elements otherLinks = document.select("TODO");
+                Elements otherLinks = document.select("a[href^=https://www.codigococina.com/page]");
 
                 for (Element page : otherLinks) {
                     if (links.add(URL)) {
@@ -39,7 +40,7 @@ public class CrawlerExtractor {
                     }
                     //Url absoluta de ese atributo
                     //TODO
-                    getPageLinks(page.attr("TODO"));
+                    getPageLinks(page.attr("href"));
                 }
             } catch (Exception e) {
                 System.err.println(e.getMessage());
@@ -48,21 +49,21 @@ public class CrawlerExtractor {
     }
 
     //Connect to each link saved in the article and find all the articles in the page
-    public void getArticles() {
+    public void getArticles(String key)  {
         for (String item: links){
             //TODO
-            Document document= null;
             try {
+                Document document= Jsoup.connect(item).get();
                 //TODO
                 //Conectarse a url
 
-                //Selecccionar elementos con h4 y dentro de estos los hijos con etiqueta a[...]
+                //Selecccionar elementos con h2 y dentro de estos los hijos con etiqueta a[...]
                 //TODO
-                Elements articleLinks = document.select("");
+                Elements articleLinks = document.select("h2 a");
                 for (Element article : articleLinks) {
-                    //Only retrieve the titles of the articles that contain Java 8
+                    //Only retrieve the titles of the articles that contain pescado
                     //TODO regex
-                    if (article.text().matches("Regex TODO")) {
+                    if (article.text().toLowerCase().contains(key)) {
                         //Remove the comment from the line below if you want to see it running on your editor,
                         //or wait for the File at the end of the execution
                         //System.out.println(article.attr("abs:href"));
@@ -70,8 +71,10 @@ public class CrawlerExtractor {
                         ArrayList<String> temporary = new ArrayList<String>();
                         temporary.add(article.text()); //The title of the article
                         //TODO
-                        temporary.add(article.attr("")); //The URL of the article
-                        articles.add(temporary);
+                        temporary.add(article.attr("href")); //The URL of the article
+                        if(articles.contains(temporary) == false){
+                            articles.add(temporary);
+                        }
                     }
                 }
             } catch (Exception e) {
@@ -88,6 +91,7 @@ public class CrawlerExtractor {
                 try {
                     //TODO
                     //Escribir en fichero las urls
+                    writer.write("title: " + articlesUrls.get(0) + " - (Urls: " + articlesUrls.get(1) + ") \n");
 
                 } catch (Exception e) {
                     System.err.println(e.getMessage());
@@ -101,7 +105,9 @@ public class CrawlerExtractor {
     public static void main(String[] args) {
         CrawlerExtractor bwc = new CrawlerExtractor();
         bwc.getPageLinks("https://www.codigococina.com/");
-        bwc.getArticles();
-        bwc.writeToFile("TODO your file name");
+        bwc.getArticles("huevo");
+        bwc.writeToFile("Recetas Huevo");
+        bwc.getArticles("carne");
+        bwc.writeToFile("Recetas Carne");
     }
 }
