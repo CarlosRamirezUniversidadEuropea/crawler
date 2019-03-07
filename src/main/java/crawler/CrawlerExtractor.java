@@ -79,7 +79,7 @@ public class CrawlerExtractor {
             writer = new FileWriter(filename);
             for(List<String> articlesUrls : articles)
                 try {
-                    writer.write("Title" + articlesUrls.get(0) + "- (Url: " + articlesUrls.get(1) + ")\n");
+                    writer.write("Title: " + articlesUrls.get(0) + "- (Url: " + articlesUrls.get(1) + ")\n");
                     //Escribir en fichero las urls
 
                 } catch (Exception e) {
@@ -94,10 +94,6 @@ public class CrawlerExtractor {
     public static void main(String[] args) throws Exception {
         CrawlerExtractor bwc = new CrawlerExtractor();
         bwc.getPageLinks("https://www.codigococina.com/");
-        bwc.getArticles("pescado");
-        bwc.writeToFile("Recetas con pescado");
-        bwc.getArticles("carne");
-        bwc.writeToFile("Recetas con carne");
         bwc.getArticles("bizcocho");
         bwc.writeToFile("Recetas con bizcocho");
     }
