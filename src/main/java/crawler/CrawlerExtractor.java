@@ -44,7 +44,7 @@ public class CrawlerExtractor {
     }
 
     //Connect to each link saved in the article and find all the articles in the page
-    public void getArticles() {
+    public void getArticles(String keyword) {
         for (String item: links){
 
             try {
@@ -53,11 +53,11 @@ public class CrawlerExtractor {
                 //Conectarse a url
 
                 //Selecccionar elementos con h2 y dentro de estos los hijos con etiqueta a[...]
-                Elements articleLinks = document.select("h2 a");
+                Elements articleLinks = document.select("h2 a.entry-title-link");
                 for (Element article : articleLinks) {
                     //Only retrieve the titles of the articles that contain Java 8
                     String articleText =article.text().toLowerCase();
-                    if (articleText.contains("pollo")) {
+                   if (articleText.contains(keyword)) {
                         //Remove the comment from the line below if you want to see it running on your editor,
                         //or wait for the File at the end of the execution
                         //System.out.println(article.attr("abs:href"));
@@ -65,12 +65,12 @@ public class CrawlerExtractor {
                         ArrayList<String> temporary = new ArrayList<String>();
                         temporary.add(article.text()); //The title of the article
                         temporary.add(article.attr("href")); //The URL of the article
-                        if(articles.contains(temporary)==false) {
+                       // if(articles.contains(temporary)==false) {
                             articles.add(temporary);
                         }
                     }
                 }
-            } catch (Exception e) {
+             catch (Exception e) {
                 System.err.println(e.getMessage());
             }
         }
@@ -98,7 +98,7 @@ public class CrawlerExtractor {
     public static void main(String[] args) {
         CrawlerExtractor bwc = new CrawlerExtractor();
         bwc.getPageLinks("https://www.codigococina.com/");
-        bwc.getArticles();
-        bwc.writeToFile("Recetas");
+        bwc.getArticles("carne");
+        bwc.writeToFile("Recetas con carne");
     }
 }
