@@ -95,6 +95,6 @@ public class CrawlerExtractor {
         CrawlerExtractor bwc = new CrawlerExtractor();
         bwc.getPageLinks("https://www.codigococina.com/");
         bwc.getArticles("carne");
-        bwc.writeToFile("Recetas");
+        bwc.writeToFile("Recetas sanas");
     }
 }
