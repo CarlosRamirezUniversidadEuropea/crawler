@@ -35,7 +35,7 @@ public class CrawlerExtractor {
                         System.out.println(URL);
                     }
                     //Url absoluta de ese atributo
-                    //TODO
+
                     getPageLinks(page.attr("href"));
                 }
             } catch (Exception e) {
@@ -98,7 +98,7 @@ public class CrawlerExtractor {
     public static void main(String[] args) {
         CrawlerExtractor bwc = new CrawlerExtractor();
         bwc.getPageLinks("https://www.codigococina.com/");
-        bwc.getArticles("bizcocho");
-        bwc.writeToFile("Recetas con Bizcocho");
+        bwc.getArticles("carne");
+        bwc.writeToFile("Recetas con carne");
     }
 }
